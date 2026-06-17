@@ -1,9 +1,9 @@
+'use client'
+
 import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
-import Navbar from '../components/common/Navbar'
-import Footer from '../components/common/Footer'
-import { contactApi } from '../services/api'
-import type { Inquiry } from '../types'
+import { contactApi } from '@/services/api'
+import type { Inquiry } from '@/types'
 
 export default function ContactPage() {
   const [form, setForm] = useState<Inquiry>({ name: '', email: '', phone: '', subject: '', message: '' })
@@ -20,9 +20,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-
+    <>
       <div className="bg-navy text-white py-12 px-4">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-3xl font-bold mb-2">Contact Us</h1>
@@ -30,14 +28,14 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <main className="max-w-5xl mx-auto px-4 py-12 flex-1 grid md:grid-cols-2 gap-12">
+      <div className="max-w-5xl mx-auto px-4 py-12 grid md:grid-cols-2 gap-12">
         <div>
           <h2 className="text-xl font-bold text-navy mb-6">Send us a Message</h2>
           {submitted ? (
             <div className="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
               <div className="text-3xl mb-2">✅</div>
               <p className="font-semibold text-green-700">Message sent successfully!</p>
-              <p className="text-green-600 text-sm mt-1">We'll get back to you within 24 hours.</p>
+              <p className="text-green-600 text-sm mt-1">We&apos;ll get back to you within 24 hours.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -99,9 +97,7 @@ export default function ContactPage() {
             </div>
           ))}
         </div>
-      </main>
-
-      <Footer />
-    </div>
+      </div>
+    </>
   )
 }

@@ -1,6 +1,8 @@
+'use client'
+
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-import { authApi } from '../services/api'
-import type { User, LoginCredentials, RegisterData } from '../types'
+import { authApi } from '@/services/api'
+import type { User, LoginCredentials, RegisterData } from '@/types'
 
 interface AuthContextType {
   user: User | null

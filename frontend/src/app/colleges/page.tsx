@@ -1,9 +1,10 @@
+'use client'
+
 import { useState } from 'react'
+import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
-import Navbar from '../components/common/Navbar'
-import Footer from '../components/common/Footer'
-import { collegeApi } from '../services/api'
-import type { College } from '../types'
+import { collegeApi } from '@/services/api'
+import type { College } from '@/types'
 
 export default function CollegesPage() {
   const [search, setSearch] = useState('')
@@ -16,9 +17,7 @@ export default function CollegesPage() {
   const colleges: College[] = data?.results ?? (data as unknown as College[]) ?? []
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-
+    <>
       <div className="bg-navy text-white py-12 px-4">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-3xl font-bold mb-2">Top Colleges</h1>
@@ -33,7 +32,7 @@ export default function CollegesPage() {
         </div>
       </div>
 
-      <main className="max-w-5xl mx-auto px-4 py-10 flex-1">
+      <div className="max-w-5xl mx-auto px-4 py-10">
         {isLoading ? (
           <div className="flex justify-center py-20">
             <div className="animate-spin rounded-full h-10 w-10 border-4 border-gold border-t-transparent" />
@@ -67,9 +66,7 @@ export default function CollegesPage() {
             ))}
           </div>
         )}
-      </main>
-
-      <Footer />
-    </div>
+      </div>
+    </>
   )
 }

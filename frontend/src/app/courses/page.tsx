@@ -1,16 +1,17 @@
+'use client'
+
 import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
-import { useSearchParams, Link } from 'react-router-dom'
-import Navbar from '../components/common/Navbar'
-import Footer from '../components/common/Footer'
-import { courseApi } from '../services/api'
-import type { Course } from '../types'
+import { courseApi } from '@/services/api'
+import type { Course } from '@/types'
 
 const STREAMS = ['engineering', 'medical', 'management', 'commerce', 'arts', 'law', 'design', 'pharmacy', 'nursing']
 
 export default function CoursesPage() {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const activeStream = searchParams.get('stream') ?? ''
+  const searchParams = useSearchParams()
+  const [activeStream, setActiveStream] = useState(searchParams.get('stream') ?? '')
   const [search, setSearch] = useState('')
 
   const { data: courses, isLoading } = useQuery<{ results: Course[] }>({
@@ -23,9 +24,7 @@ export default function CoursesPage() {
   const list: Course[] = courses?.results ?? (courses as unknown as Course[]) ?? []
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-
+    <>
       <div className="bg-navy text-white py-12 px-4">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-3xl font-bold mb-2">Explore Courses</h1>
@@ -40,14 +39,13 @@ export default function CoursesPage() {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 py-8 flex flex-col md:flex-row gap-8 flex-1">
-        {/* Sidebar */}
+      <div className="max-w-5xl mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
         <aside className="w-full md:w-48 shrink-0">
           <h3 className="font-semibold text-gray-700 mb-3">Browse by Stream</h3>
           <ul className="space-y-1">
             <li>
               <button
-                onClick={() => setSearchParams({})}
+                onClick={() => setActiveStream('')}
                 className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                   !activeStream ? 'bg-gold text-white' : 'hover:bg-gray-100 text-gray-600'
                 }`}
@@ -58,7 +56,7 @@ export default function CoursesPage() {
             {STREAMS.map((s) => (
               <li key={s}>
                 <button
-                  onClick={() => setSearchParams({ stream: s })}
+                  onClick={() => setActiveStream(s)}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm capitalize transition-colors ${
                     activeStream === s ? 'bg-gold text-white' : 'hover:bg-gray-100 text-gray-600'
                   }`}
@@ -70,7 +68,6 @@ export default function CoursesPage() {
           </ul>
         </aside>
 
-        {/* Grid */}
         <main className="flex-1">
           {isLoading ? (
             <div className="flex justify-center py-20">
@@ -88,7 +85,7 @@ export default function CoursesPage() {
                       {course.short_name}
                     </span>
                   </div>
-                  <p className="text-gray-500 text-sm mt-1 capitalize">{course.stream} • {course.duration_years} yrs</p>
+                  <p className="text-gray-500 text-sm mt-1 capitalize">{course.stream} &bull; {course.duration_years} yrs</p>
                   <p className="text-gray-500 text-xs mt-1">Eligibility: {course.eligibility}</p>
                   {course.avg_salary_max > 0 && (
                     <p className="text-green-600 text-sm mt-2 font-medium">
@@ -96,7 +93,7 @@ export default function CoursesPage() {
                     </p>
                   )}
                   <Link
-                    to={`/apply?course=${course.id}`}
+                    href={`/apply?course=${course.id}`}
                     className="inline-block mt-3 text-sm text-gold font-semibold hover:underline"
                   >
                     Apply →
@@ -107,8 +104,6 @@ export default function CoursesPage() {
           )}
         </main>
       </div>
-
-      <Footer />
-    </div>
+    </>
   )
 }

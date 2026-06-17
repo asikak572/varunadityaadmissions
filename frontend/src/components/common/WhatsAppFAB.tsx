@@ -1,6 +1,8 @@
+'use client'
+
 import { motion } from 'framer-motion'
 
-const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER ?? '919876543210'
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '919876543210'
 
 export default function WhatsAppFAB() {
   return (

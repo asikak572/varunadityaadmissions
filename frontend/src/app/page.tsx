@@ -1,10 +1,10 @@
+'use client'
+
 import { useRef } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
-import Navbar from '../components/common/Navbar'
-import Footer from '../components/common/Footer'
-import { collegeApi } from '../services/api'
-import type { College } from '../types'
+import { collegeApi } from '@/services/api'
+import type { College } from '@/types'
 
 const WHATSAPP_URL = 'https://wa.me/91XXXXXXXXXX?text=Hi, I need help with admissions'
 
@@ -93,23 +93,18 @@ export default function HomePage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-
-      {/* Hero — single unified box, text left + image right sharing same container */}
+    <>
+      {/* Hero */}
       <section className="relative w-full overflow-hidden" style={{ minHeight: 420, backgroundColor: '#daeef9' }}>
-        {/* Hero image: absolutely fills the right 58% of the section */}
         <div className="absolute top-0 right-0 bottom-0 w-full lg:w-[58%]">
           <img
             src="/hero.png"
             alt="Students at college campus"
             className="w-full h-full object-cover object-center"
           />
-          {/* gradient fades image into white on the left edge */}
           <div className="absolute inset-y-0 left-0 w-48 to-transparent pointer-events-none" style={{ background: 'linear-gradient(to right, #daeef9, transparent)' }} />
         </div>
 
-        {/* Text content sits on top, left-aligned */}
         <div className="relative z-10 flex items-center min-h-[420px] px-8 lg:px-16 xl:px-24 py-14">
           <div className="max-w-[480px]">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-5">
@@ -122,7 +117,7 @@ export default function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <Link
-                to="/apply"
+                href="/apply"
                 className="inline-flex items-center justify-center gap-2 bg-gold hover:bg-gold-dark text-white font-semibold px-7 py-3 rounded-lg transition-colors"
               >
                 Apply Now →
@@ -216,7 +211,7 @@ export default function HomePage() {
                       <span className="text-sm font-medium text-gray-700">{college.rating}</span>
                     </div>
                     <Link
-                      to={`/colleges/${college.id}`}
+                      href={`/colleges/${college.id}`}
                       className="text-xs font-semibold text-gold border border-gold hover:bg-gold hover:text-white px-3 py-1 rounded transition-colors"
                     >
                       View Details
@@ -234,7 +229,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-navy">Popular Courses</h2>
-            <Link to="/courses" className="text-sm font-semibold text-gold hover:underline flex items-center gap-1">
+            <Link href="/courses" className="text-sm font-semibold text-gold hover:underline flex items-center gap-1">
               View All Courses →
             </Link>
           </div>
@@ -242,7 +237,7 @@ export default function HomePage() {
             {COURSES.map((c) => (
               <Link
                 key={c.slug}
-                to={`/courses?stream=${c.slug}`}
+                href={`/courses?stream=${c.slug}`}
                 className="flex-shrink-0 flex items-center gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3 hover:shadow-md hover:border-gold transition-all"
               >
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${c.iconBg}`}>
@@ -277,7 +272,6 @@ export default function HomePage() {
               ))}
             </div>
 
-            {/* Testimonial */}
             <div className="bg-white/10 backdrop-blur rounded-2xl p-7 border border-white/20">
               <div className="flex gap-1 mb-4">
                 {[1, 2, 3, 4, 5].map((s) => (
@@ -285,7 +279,7 @@ export default function HomePage() {
                 ))}
               </div>
               <p className="text-gray-200 text-sm leading-relaxed mb-6">
-                "Varun Aditya's team guided me through the entire admission process with complete transparency. I got into VIT on my first attempt! Their counselors were always available and never pushed me toward any specific college — they genuinely cared about my future."
+                &quot;Varun Aditya&apos;s team guided me through the entire admission process with complete transparency. I got into VIT on my first attempt! Their counselors were always available and never pushed me toward any specific college — they genuinely cared about my future.&quot;
               </p>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-gold flex items-center justify-center text-white font-bold text-sm">
@@ -300,8 +294,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      <Footer />
-    </div>
+    </>
   )
 }

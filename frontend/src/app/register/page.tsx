@@ -1,13 +1,16 @@
+'use client'
+
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../context/AuthContext'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/context/AuthContext'
 
 export default function RegisterPage() {
   const [form, setForm] = useState({ email: '', password: '', full_name: '', phone_number: '' })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const { register } = useAuth()
-  const navigate = useNavigate()
+  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -15,7 +18,7 @@ export default function RegisterPage() {
     setLoading(true)
     try {
       await register(form)
-      navigate('/dashboard')
+      router.push('/dashboard')
     } catch (err: unknown) {
       const msg = (err as { response?: { data?: { email?: string[]; password?: string[] } } })
         ?.response?.data
@@ -30,7 +33,7 @@ export default function RegisterPage() {
   const set = (k: string, v: string) => setForm((f) => ({ ...f, [k]: v }))
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+    <div className="min-h-[80vh] bg-gray-50 flex items-center justify-center px-4">
       <div className="bg-white rounded-2xl border shadow-sm p-8 w-full max-w-md">
         <div className="text-center mb-8">
           <img src="/logo.png" alt="VA" className="h-14 mx-auto mb-4 object-contain" />
@@ -70,7 +73,7 @@ export default function RegisterPage() {
 
         <p className="text-center text-sm text-gray-500 mt-6">
           Already have an account?{' '}
-          <Link to="/login" className="text-gold font-semibold hover:underline">
+          <Link href="/login" className="text-gold font-semibold hover:underline">
             Sign In
           </Link>
         </p>

@@ -1,13 +1,14 @@
+'use client'
+
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import Navbar from '../../components/common/Navbar'
-import Footer from '../../components/common/Footer'
-import api from '../../services/api'
-import { formatDate, getStatusColor } from '../../lib/utils'
-import type { Application } from '../../types'
+import api from '@/services/api'
+import { formatDate, getStatusColor } from '@/lib/utils'
+import ProtectedRoute from '@/components/auth/ProtectedRoute'
+import type { Application } from '@/types'
 
 const STATUS_OPTIONS = ['pending', 'under_review', 'shortlisted', 'rejected', 'admitted']
 
-export default function AdminDashboard() {
+function AdminContent() {
   const qc = useQueryClient()
 
   const { data, isLoading } = useQuery<{ results: Application[] }>({
@@ -24,9 +25,7 @@ export default function AdminDashboard() {
   })
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-
+    <>
       <div className="bg-navy text-white py-10 px-4">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-2xl font-bold">Admin Dashboard</h1>
@@ -34,7 +33,7 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      <main className="max-w-6xl mx-auto px-4 py-10 flex-1">
+      <div className="max-w-6xl mx-auto px-4 py-10">
         <h2 className="text-xl font-bold text-navy mb-6">
           All Applications ({applications.length})
         </h2>
@@ -85,9 +84,15 @@ export default function AdminDashboard() {
             </table>
           </div>
         )}
-      </main>
+      </div>
+    </>
+  )
+}
 
-      <Footer />
-    </div>
+export default function AdminDashboard() {
+  return (
+    <ProtectedRoute adminOnly>
+      <AdminContent />
+    </ProtectedRoute>
   )
 }

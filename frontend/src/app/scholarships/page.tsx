@@ -1,16 +1,15 @@
+'use client'
+
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { useSearchParams } from 'react-router-dom'
-import Navbar from '../components/common/Navbar'
-import Footer from '../components/common/Footer'
-import { scholarshipApi } from '../services/api'
-import { formatDate } from '../lib/utils'
-import type { Scholarship } from '../types'
+import { scholarshipApi } from '@/services/api'
+import { formatDate } from '@/lib/utils'
+import type { Scholarship } from '@/types'
 
 const STREAMS = ['engineering', 'medical', 'management', 'commerce', 'arts', 'law']
 
 export default function ScholarshipsPage() {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const activeStream = searchParams.get('stream') ?? ''
+  const [activeStream, setActiveStream] = useState('')
 
   const { data, isLoading } = useQuery<{ results: Scholarship[] }>({
     queryKey: ['scholarships', activeStream],
@@ -21,9 +20,7 @@ export default function ScholarshipsPage() {
   const scholarships: Scholarship[] = data?.results ?? (data as unknown as Scholarship[]) ?? []
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-
+    <>
       <div className="bg-navy text-white py-12 px-4">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-3xl font-bold mb-2">Scholarships</h1>
@@ -31,13 +28,13 @@ export default function ScholarshipsPage() {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 py-8 flex flex-col md:flex-row gap-8 flex-1">
+      <div className="max-w-5xl mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
         <aside className="w-full md:w-48 shrink-0">
           <h3 className="font-semibold text-gray-700 mb-3">Filter by Stream</h3>
           <ul className="space-y-1">
             <li>
               <button
-                onClick={() => setSearchParams({})}
+                onClick={() => setActiveStream('')}
                 className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                   !activeStream ? 'bg-gold text-white' : 'hover:bg-gray-100 text-gray-600'
                 }`}
@@ -48,7 +45,7 @@ export default function ScholarshipsPage() {
             {STREAMS.map((s) => (
               <li key={s}>
                 <button
-                  onClick={() => setSearchParams({ stream: s })}
+                  onClick={() => setActiveStream(s)}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm capitalize transition-colors ${
                     activeStream === s ? 'bg-gold text-white' : 'hover:bg-gray-100 text-gray-600'
                   }`}
@@ -108,8 +105,6 @@ export default function ScholarshipsPage() {
           )}
         </main>
       </div>
-
-      <Footer />
-    </div>
+    </>
   )
 }

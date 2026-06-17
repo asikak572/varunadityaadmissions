@@ -1,13 +1,14 @@
-import { useQuery } from '@tanstack/react-query'
-import { Link } from 'react-router-dom'
-import Navbar from '../../components/common/Navbar'
-import Footer from '../../components/common/Footer'
-import { applicationApi } from '../../services/api'
-import { useAuth } from '../../context/AuthContext'
-import { formatDate, getStatusColor } from '../../lib/utils'
-import type { Application } from '../../types'
+'use client'
 
-export default function DashboardPage() {
+import Link from 'next/link'
+import { useQuery } from '@tanstack/react-query'
+import { applicationApi } from '@/services/api'
+import { useAuth } from '@/context/AuthContext'
+import { formatDate, getStatusColor } from '@/lib/utils'
+import ProtectedRoute from '@/components/auth/ProtectedRoute'
+import type { Application } from '@/types'
+
+function DashboardContent() {
   const { user } = useAuth()
 
   const { data, isLoading } = useQuery<{ results: Application[] }>({
@@ -18,9 +19,7 @@ export default function DashboardPage() {
   const applications: Application[] = data?.results ?? (data as unknown as Application[]) ?? []
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-
+    <>
       <div className="bg-navy text-white py-10 px-4">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-2xl font-bold">Welcome, {user?.full_name || user?.email}</h1>
@@ -28,11 +27,11 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <main className="max-w-5xl mx-auto px-4 py-10 flex-1">
+      <div className="max-w-5xl mx-auto px-4 py-10">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-navy">My Applications</h2>
           <Link
-            to="/apply"
+            href="/apply"
             className="bg-gold text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-gold-dark transition-colors"
           >
             + New Application
@@ -47,7 +46,7 @@ export default function DashboardPage() {
           <div className="text-center py-20 text-gray-400">
             <div className="text-5xl mb-4">📋</div>
             <p className="font-medium">No applications yet</p>
-            <Link to="/apply" className="text-gold text-sm mt-2 inline-block hover:underline">
+            <Link href="/apply" className="text-gold text-sm mt-2 inline-block hover:underline">
               Submit your first application →
             </Link>
           </div>
@@ -69,9 +68,15 @@ export default function DashboardPage() {
             ))}
           </div>
         )}
-      </main>
+      </div>
+    </>
+  )
+}
 
-      <Footer />
-    </div>
+export default function DashboardPage() {
+  return (
+    <ProtectedRoute>
+      <DashboardContent />
+    </ProtectedRoute>
   )
 }
