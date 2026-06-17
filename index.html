@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Varun Aditya Admissions Consultancy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #1a1a2e;
+      background: #fff;
+      font-size: 14px;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; }
+
+    /* ─── NAVBAR ───────────────────────────────────────────── */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #fff;
+      border-bottom: 1px solid #ebebeb;
+      box-shadow: 0 1px 6px rgba(0,0,0,.06);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      padding: 0 48px;
+      gap: 40px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .logo-clip {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .logo-clip img {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      list-style: none;
+      flex: 1;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      padding-bottom: 3px;
+      position: relative;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: #C9952A; }
+
+    .nav-links a.active {
+      color: #C9952A;
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #C9952A;
+      border-radius: 2px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .btn-wa-nav {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 14px;
+      border: 1.5px solid #d8d8d8;
+      border-radius: 8px;
+      background: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      color: #333;
+      cursor: pointer;
+      transition: border-color .2s;
+    }
+
+    .btn-wa-nav:hover { border-color: #aaa; }
+
+    .btn-apply-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 20px;
+      border-radius: 8px;
+      background: #C9952A;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      transition: background .2s;
+    }
+
+    .btn-apply-nav:hover { background: #a87820; }
+
+    /* ─── HERO ─────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(108deg, #fff8f6 0%, #fff 45%, #eef2ff 100%);
+      min-height: 320px;
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-left {
+      flex: 0 0 52%;
+      padding: 52px 56px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .hero-title {
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.18;
+      color: #1a1a2e;
+      margin-bottom: 14px;
+    }
+
+    .hero-title .orange { color: #C9952A; }
+
+    .hero-desc {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.65;
+      max-width: 360px;
+      margin-bottom: 26px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: #C9952A;
+      color: #fff;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      transition: background .2s;
+    }
+
+    .btn-primary:hover { background: #a87820; }
+
+    .btn-wa-outline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border: 1.5px solid #ccc;
+      border-radius: 8px;
+      background: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      transition: border-color .2s;
+    }
+
+    .btn-wa-outline:hover { border-color: #888; }
+
+    .hero-badges {
+      display: flex;
+      gap: 24px;
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .hero-right {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right-inner {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #c7d2fe 0%, #a5b4fc 40%, #93c5fd 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .hero-img-note {
+      color: rgba(255,255,255,.8);
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+      padding: 16px;
+      background: rgba(0,0,0,.15);
+      width: 100%;
+    }
+
+    /* ─── STATS ────────────────────────────────────────────── */
+    .stats-bar {
+      background: #fff;
+      border-top: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .stats-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .stat-cell {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 22px 28px;
+      border-right: 1px solid #f0f0f0;
+    }
+
+    .stat-cell:last-child { border-right: none; }
+
+    .stat-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .si-blue  { background: #eef2ff; color: #4f46e5; }
+    .si-orange{ background: #fff3ee; color: #C9952A; }
+    .si-green { background: #ecfdf5; color: #059669; }
+    .si-purple{ background: #f5f3ff; color: #7c3aed; }
+
+    .stat-num {
+      font-size: 24px;
+      font-weight: 800;
+      color: #1a1a2e;
+      line-height: 1.1;
+    }
+
+    .stat-lbl {
+      font-size: 12px;
+      color: #777;
+      margin-top: 2px;
+    }
+
+    /* ─── SECTION BASE ─────────────────────────────────────── */
+    .section {
+      padding: 36px 56px;
+    }
+
+    .sec-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .sec-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+
+    .view-all-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: #C9952A;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ─── COLLEGE CARDS ─────────────────────────────────────── */
+    .colleges-wrap {
+      position: relative;
+    }
+
+    .colleges-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      right: -18px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid #ddd;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+    }
+
+    .college-card {
+      border: 1px solid #e8e8e8;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 1px 5px rgba(0,0,0,.06);
+      transition: box-shadow .2s, transform .2s;
+    }
+
+    .college-card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,.12);
+      transform: translateY(-2px);
+    }
+
+    .college-thumb {
+      height: 128px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: rgba(255,255,255,.9);
+      font-weight: 600;
+      position: relative;
+    }
+
+    .college-thumb-label {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background: rgba(0,0,0,.35);
+      color: #fff;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .college-body { padding: 11px 12px 12px; }
+
+    .college-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1a1a2e;
+      line-height: 1.3;
+      margin-bottom: 3px;
+    }
+
+    .college-loc {
+      font-size: 11px;
+      color: #777;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .college-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 9px;
+    }
+
+    .college-tags {
+      font-size: 10.5px;
+      color: #555;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .college-rating {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #f59e0b;
+    }
+
+    .btn-details {
+      width: 100%;
+      padding: 7px;
+      border: 1.5px solid #4f46e5;
+      background: transparent;
+      color: #4f46e5;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      transition: background .2s, color .2s;
+    }
+
+    .btn-details:hover { background: #4f46e5; color: #fff; }
+
+    /* ─── POPULAR COURSES ───────────────────────────────────── */
+    .courses-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .course-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border: 1.5px solid #e8e8e8;
+      border-radius: 10px;
+      background: #fff;
+      cursor: pointer;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .course-pill:hover {
+      border-color: #c7d2fe;
+      box-shadow: 0 2px 8px rgba(79,70,229,.1);
+    }
+
+    .course-pill-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .course-pill-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1a1a2e;
+      line-height: 1.2;
+    }
+
+    .course-pill-sub {
+      font-size: 11px;
+      color: #777;
+    }
+
+    /* ─── WHY CHOOSE ────────────────────────────────────────── */
+    .why-section {
+      background: #0d1f4c;
+      padding: 52px 56px;
+      display: flex;
+      gap: 60px;
+      align-items: flex-start;
+    }
+
+    .why-left { flex: 1; }
+
+    .why-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 28px;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px 16px;
+    }
+
+    .why-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .why-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .why-item-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+
+    .why-item-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,.55);
+      line-height: 1.5;
+    }
+
+    /* Testimonial */
+    .why-right {
+      width: 300px;
+      flex-shrink: 0;
+    }
+
+    .testimonial-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .testi-nav-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.25);
+      background: transparent;
+      color: #fff;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .testimonial-card {
+      flex: 1;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 12px;
+      padding: 18px 18px 16px;
+    }
+
+    .testi-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #fbbf24, #f97316);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #fff;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .testi-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .testi-stars { color: #f59e0b; font-size: 14px; line-height: 1; margin-bottom: 3px; }
+
+    .testi-author-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .testi-author-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,.5);
+    }
+
+    .testi-body {
+      font-size: 12.5px;
+      color: rgba(255,255,255,.8);
+      line-height: 1.65;
+    }
+
+    /* ─── SVG HELPERS ───────────────────────────────────────── */
+    .ic { display: inline-flex; align-items: center; justify-content: center; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ NAVBAR ═══════════════════ -->
+<nav class="navbar">
+  <a href="#" class="logo">
+    <div class="logo-clip">
+      <img src="image copy 2.png" alt="Varun Aditya" />
+    </div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="#">Colleges</a></li>
+    <li><a href="#">Courses</a></li>
+    <li><a href="#">Scholarships</a></li>
+    <li><a href="#">About Us</a></li>
+    <li><a href="#">Contact Us</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <button class="btn-wa-nav">
+      <!-- WhatsApp icon -->
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Chat on WhatsApp
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <a href="apply.html" class="btn-apply-nav">
+      Apply Now
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════ HERO ══════════════════════ -->
+<section class="hero">
+  <div class="hero-left">
+    <h1 class="hero-title">
+      Your Dream College,<br>
+      <span class="orange">Our Guidance,</span><br>
+      Your Success.
+    </h1>
+    <p class="hero-desc">
+      We help students get admission in the best colleges across Tamil Nadu, Andhra Pradesh &amp; Karnataka.
+    </p>
+    <div class="hero-btns">
+      <a href="apply.html" class="btn-primary">
+        Apply Now
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#" class="btn-wa-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat on WhatsApp
+      </a>
+    </div>
+    <div class="hero-badges">
+      <div class="badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9952A" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Expert Counselors
+      </div>
+      <div class="badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9952A" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        100% Transparent
+      </div>
+      <div class="badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9952A" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        End to End Support
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-right-inner">
+      <!--
+        REPLACE THIS with your actual hero image:
+        <img src="hero-students.jpg" alt="Students" style="width:100%;height:100%;object-fit:cover;" />
+      -->
+      <div class="hero-img-note">📷 Place your hero image here (students + university building)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ STATS ═════════════════════ -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-cell">
+      <div class="stat-icon-wrap si-blue">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <div>
+        <div class="stat-num">5000+</div>
+        <div class="stat-lbl">Students Guided</div>
+      </div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-icon-wrap si-orange">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><line x1="9" y1="22" x2="9" y2="12"/><line x1="15" y1="22" x2="15" y2="12"/><line x1="9" y1="12" x2="15" y2="12"/></svg>
+      </div>
+      <div>
+        <div class="stat-num">200+</div>
+        <div class="stat-lbl">Top Colleges</div>
+      </div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-icon-wrap si-green">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      </div>
+      <div>
+        <div class="stat-num">50+</div>
+        <div class="stat-lbl">Courses Offered</div>
+      </div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-icon-wrap si-purple">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 000 5H6"/><path d="M18 9h1.5a2.5 2.5 0 010 5H18"/><path d="M8 9h8v5a4 4 0 01-8 0V9z"/><path d="M10 18.1V22M14 18.1V22M10 22h4"/></svg>
+      </div>
+      <div>
+        <div class="stat-num">95%</div>
+        <div class="stat-lbl">Success Rate</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ TOP COLLEGES ══════════════ -->
+<section class="section">
+  <div class="sec-header">
+    <h2 class="sec-title">Top Colleges</h2>
+    <a href="#" class="view-all-link">
+      View All Colleges
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+
+  <div class="colleges-wrap">
+    <div class="colleges-row">
+
+      <!-- VIT University -->
+      <div class="college-card">
+        <div class="college-thumb" style="background: linear-gradient(135deg,#3b82f6 0%,#1d4ed8 100%);">
+          <!--  Replace with: <img src="vit.jpg" style="width:100%;height:100%;object-fit:cover;"> -->
+          <span style="color:rgba(255,255,255,.5);font-size:11px;">📷 College photo</span>
+        </div>
+        <div class="college-body">
+          <div class="college-name">VIT University</div>
+          <div class="college-loc">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Vellore, Tamil Nadu
+          </div>
+          <div class="college-meta-row">
+            <div class="college-tags">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
+              Engineering, Management
+            </div>
+            <div class="college-rating">★ 4.5</div>
+          </div>
+          <button class="btn-details">View Details</button>
+        </div>
+      </div>
+
+      <!-- SRM -->
+      <div class="college-card">
+        <div class="college-thumb" style="background: linear-gradient(135deg,#f97316 0%,#c2410c 100%);">
+          <span style="color:rgba(255,255,255,.5);font-size:11px;">📷 College photo</span>
+        </div>
+        <div class="college-body">
+          <div class="college-name">SRM Institute of Science and Technology</div>
+          <div class="college-loc">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Chennai, Tamil Nadu
+          </div>
+          <div class="college-meta-row">
+            <div class="college-tags">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
+              Engineering, Medical
+            </div>
+            <div class="college-rating">★ 4.4</div>
+          </div>
+          <button class="btn-details">View Details</button>
+        </div>
+      </div>
+
+      <!-- JSS -->
+      <div class="college-card">
+        <div class="college-thumb" style="background: linear-gradient(135deg,#10b981 0%,#065f46 100%);">
+          <span style="color:rgba(255,255,255,.5);font-size:11px;">📷 College photo</span>
+        </div>
+        <div class="college-body">
+          <div class="college-name">JSS Academy of Higher Education &amp; Research</div>
+          <div class="college-loc">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Mysore, Karnataka
+          </div>
+          <div class="college-meta-row">
+            <div class="college-tags">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Medical, Engineering
+            </div>
+            <div class="college-rating">★ 4.4</div>
+          </div>
+          <button class="btn-details">View Details</button>
+        </div>
+      </div>
+
+      <!-- RV College -->
+      <div class="college-card">
+        <div class="college-thumb" style="background: linear-gradient(135deg,#8b5cf6 0%,#5b21b6 100%);">
+          <span style="color:rgba(255,255,255,.5);font-size:11px;">📷 College photo</span>
+        </div>
+        <div class="college-body">
+          <div class="college-name">RV College of Engineering</div>
+          <div class="college-loc">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Bengaluru, Karnataka
+          </div>
+          <div class="college-meta-row">
+            <div class="college-tags">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Engineering
+            </div>
+            <div class="college-rating">★ 4.4</div>
+          </div>
+          <button class="btn-details">View Details</button>
+        </div>
+      </div>
+
+      <!-- Anna University -->
+      <div class="college-card">
+        <div class="college-thumb" style="background: linear-gradient(135deg,#ec4899 0%,#9d174d 100%);">
+          <span style="color:rgba(255,255,255,.5);font-size:11px;">📷 College photo</span>
+        </div>
+        <div class="college-body">
+          <div class="college-name">Anna University</div>
+          <div class="college-loc">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Chennai, Tamil Nadu
+          </div>
+          <div class="college-meta-row">
+            <div class="college-tags">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Engineering
+            </div>
+            <div class="college-rating">★ 4.3</div>
+          </div>
+          <button class="btn-details">View Details</button>
+        </div>
+      </div>
+
+    </div><!-- /colleges-row -->
+
+    <button class="carousel-btn" title="Next">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ POPULAR COURSES ══════════ -->
+<section class="section" style="padding-top: 0;">
+  <div class="sec-header">
+    <h2 class="sec-title">Popular Courses</h2>
+    <a href="#" class="view-all-link">
+      View All Courses
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+
+  <div class="courses-row">
+
+    <div class="course-pill">
+      <div class="course-pill-icon" style="background:#eef2ff;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div>
+        <div class="course-pill-name">B.Tech</div>
+        <div class="course-pill-sub">Engineering</div>
+      </div>
+    </div>
+
+    <div class="course-pill">
+      <div class="course-pill-icon" style="background:#ecfdf5;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M16 11l2 2 4-4"/></svg>
+      </div>
+      <div>
+        <div class="course-pill-name">MBBS</div>
+        <div class="course-pill-sub">Medical</div>
+      </div>
+    </div>
+
+    <div class="course-pill">
+      <div class="course-pill-icon" style="background:#fff3ee;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9952A" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <div>
+        <div class="course-pill-name">BBA</div>
+        <div class="course-pill-sub">Management</div>
+      </div>
+    </div>
+
+    <div class="course-pill">
+      <div class="course-pill-icon" style="background:#fef3c7;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div>
+        <div class="course-pill-name">B.Com</div>
+        <div class="course-pill-sub">Commerce</div>
+      </div>
+    </div>
+
+    <div class="course-pill">
+      <div class="course-pill-icon" style="background:#ecfdf5;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v11m0 0H5m4 0h4m6-11v11m0 0h-4m4 0h-4m0-5v5"/></svg>
+      </div>
+      <div>
+        <div class="course-pill-name">B.Sc</div>
+        <div class="course-pill-sub">Science</div>
+      </div>
+    </div>
+
+    <div class="course-pill">
+      <div class="course-pill-icon" style="background:#fce7f3;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <div>
+        <div class="course-pill-name">BA</div>
+        <div class="course-pill-sub">Arts</div>
+      </div>
+    </div>
+
+    <div class="course-pill">
+      <div class="course-pill-icon" style="background:#f5f3ff;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8h10M7 12h5"/></svg>
+      </div>
+      <div>
+        <div class="course-pill-name">BCA</div>
+        <div class="course-pill-sub">Computer Applications</div>
+      </div>
+    </div>
+
+    <div class="course-pill">
+      <div class="course-pill-icon" style="background:#fff3ee;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9952A" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <div>
+        <div class="course-pill-name">LLB</div>
+        <div class="course-pill-sub">Law</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ WHY CHOOSE ════════════════ -->
+<section class="why-section">
+  <div class="why-left">
+    <h2 class="why-title">Why Choose Varun Aditya?</h2>
+    <div class="why-grid">
+
+      <div class="why-item">
+        <div class="why-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#93c5fd" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div>
+          <div class="why-item-title">Expert Guidance</div>
+          <div class="why-item-sub">from experienced counselors</div>
+        </div>
+      </div>
+
+      <div class="why-item">
+        <div class="why-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#93c5fd" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div>
+          <div class="why-item-title">Best College Options</div>
+          <div class="why-item-sub">handpicked for you</div>
+        </div>
+      </div>
+
+      <div class="why-item">
+        <div class="why-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#93c5fd" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div>
+          <div class="why-item-title">End to End Support</div>
+          <div class="why-item-sub">from application to admission</div>
+        </div>
+      </div>
+
+      <div class="why-item">
+        <div class="why-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#93c5fd" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+        </div>
+        <div>
+          <div class="why-item-title">Multiple States</div>
+          <div class="why-item-sub">Tamil Nadu, Andhra Pradesh &amp; Karnataka</div>
+        </div>
+      </div>
+
+      <div class="why-item">
+        <div class="why-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#93c5fd" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <div>
+          <div class="why-item-title">100% Honest &amp; Transparent</div>
+          <div class="why-item-sub">No hidden charges, just the best advice</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Testimonial -->
+  <div class="why-right">
+    <div class="testimonial-wrap">
+      <button class="testi-nav-btn">‹</button>
+
+      <div class="testimonial-card">
+        <div class="testi-header">
+          <div class="testi-avatar">K</div>
+          <div>
+            <div class="testi-stars">★★★★★</div>
+            <div class="testi-author-name">Karthik R.</div>
+            <div class="testi-author-sub">VIT University, Vellore</div>
+          </div>
+        </div>
+        <p class="testi-body">
+          "Thanks to Varun Aditya Admissions, I got admission in my dream college. Their support was excellent throughout the process."
+        </p>
+      </div>
+
+      <button class="testi-nav-btn">›</button>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

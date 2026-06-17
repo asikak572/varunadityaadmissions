@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Courses – Varun Aditya Admissions Consultancy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: #1a1a2e; background: #f7f8fc; font-size: 14px; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; }
+
+    /* ── NAVBAR ─────────────────────────────────────────── */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: #fff; border-bottom: 1px solid #ebebeb;
+      box-shadow: 0 1px 6px rgba(0,0,0,.06);
+      height: 64px; display: flex; align-items: center;
+      padding: 0 48px; gap: 40px;
+    }
+    .logo { display: flex; align-items: center; flex-shrink: 0; }
+    .logo-clip { display: flex; align-items: center; flex-shrink: 0; }
+    .logo-clip img { height: 52px; width: auto; object-fit: contain; border-radius: 6px; }
+    .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; flex: 1; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: #333; padding-bottom: 3px; position: relative; transition: color .2s; }
+    .nav-links a:hover { color: #C9952A; }
+    .nav-links a.active { color: #C9952A; }
+    .nav-links a.active::after { content: ''; position: absolute; bottom: -6px; left: 0; right: 0; height: 2px; background: #C9952A; border-radius: 2px; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .btn-wa-nav { display: flex; align-items: center; gap: 7px; padding: 8px 14px; border: 1.5px solid #d8d8d8; border-radius: 8px; background: #fff; font-size: 13px; font-weight: 500; color: #333; cursor: pointer; }
+    .btn-apply-nav { display: flex; align-items: center; gap: 6px; padding: 9px 20px; border-radius: 8px; background: #C9952A; color: #fff; font-size: 13px; font-weight: 600; border: none; }
+
+    /* ── PAGE LAYOUT ────────────────────────────────────── */
+    .page-wrap { display: flex; min-height: calc(100vh - 64px); }
+
+    /* ── SIDEBAR ────────────────────────────────────────── */
+    .sidebar {
+      width: 240px; flex-shrink: 0; background: #fff;
+      border-right: 1px solid #eee; padding: 20px 0;
+      display: flex; flex-direction: column;
+      position: sticky; top: 64px; height: calc(100vh - 64px); overflow-y: auto;
+    }
+    .sidebar-title { font-size: 14px; font-weight: 700; color: #1a1a2e; padding: 0 16px 12px; }
+    .cat-list { list-style: none; margin-bottom: 8px; }
+    .cat-item { display: flex; align-items: center; gap: 10px; padding: 9px 16px; cursor: pointer; transition: background .15s; border-radius: 0; }
+    .cat-item:hover { background: #f5f5f5; }
+    .cat-item.active { background: #EEF2FF; }
+    .cat-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; color: #6b7280; flex-shrink: 0; }
+    .cat-item.active .cat-icon { color: #4f46e5; }
+    .cat-name { flex: 1; font-size: 13px; font-weight: 500; color: #444; }
+    .cat-item.active .cat-name { color: #4f46e5; font-weight: 600; }
+    .cat-count { font-size: 11px; font-weight: 600; background: #e0e7ff; color: #4f46e5; padding: 2px 7px; border-radius: 10px; }
+    .cat-item:not(.active) .cat-count { background: #f0f0f0; color: #777; }
+
+    .sidebar-divider { border: none; border-top: 1px solid #eee; margin: 12px 0; }
+
+    .filter-section { padding: 0 16px; }
+    .filter-title { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 12px; }
+    .filter-group-label { font-size: 12px; font-weight: 600; color: #555; margin-bottom: 8px; margin-top: 14px; }
+    .checkbox-item { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; cursor: pointer; }
+    .checkbox-item input[type="checkbox"] { width: 15px; height: 15px; accent-color: #4f46e5; }
+    .checkbox-item label { font-size: 12.5px; color: #444; cursor: pointer; }
+
+    .sidebar-help {
+      margin: auto 16px 16px;
+      background: #EEF2FF; border-radius: 10px; padding: 14px;
+      text-align: center; margin-top: auto;
+    }
+    .sidebar-help-title { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+    .sidebar-help-sub { font-size: 11px; color: #666; margin-bottom: 10px; }
+    .btn-counselor {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      width: 100%; padding: 8px; border: 1.5px solid #4f46e5;
+      border-radius: 7px; background: #fff; color: #4f46e5;
+      font-size: 12px; font-weight: 600;
+    }
+
+    /* ── MAIN CONTENT ───────────────────────────────────── */
+    .main { flex: 1; padding: 20px 24px; overflow-x: hidden; }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #f0f4ff 0%, #fff 60%, #f0fdf4 100%);
+      border-radius: 14px; padding: 32px 36px;
+      display: flex; align-items: center; gap: 24px;
+      margin-bottom: 28px; position: relative; overflow: hidden;
+      border: 1px solid #e8ecf8;
+    }
+    .hero-banner-left { flex: 1; }
+    .hero-banner-title { font-size: 28px; font-weight: 800; color: #1a1a2e; line-height: 1.2; margin-bottom: 10px; }
+    .hero-banner-title .blue { color: #2563eb; }
+    .hero-banner-sub { font-size: 13px; color: #555; line-height: 1.6; max-width: 480px; margin-bottom: 18px; }
+    .search-row { display: flex; gap: 8px; margin-bottom: 14px; }
+    .search-box {
+      flex: 1; display: flex; align-items: center; gap: 8px;
+      border: 1.5px solid #ddd; border-radius: 8px; padding: 10px 14px;
+      background: #fff;
+    }
+    .search-box input { flex: 1; border: none; outline: none; font-size: 13px; color: #333; }
+    .search-box input::placeholder { color: #aaa; }
+    .btn-search {
+      display: flex; align-items: center; gap: 6px;
+      padding: 10px 20px; background: #2563eb; color: #fff;
+      border: none; border-radius: 8px; font-size: 13px; font-weight: 600;
+    }
+    .popular-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .popular-label { font-size: 12px; font-weight: 600; color: #666; }
+    .popular-tag {
+      padding: 4px 12px; border: 1.5px solid #ddd; border-radius: 20px;
+      font-size: 12px; font-weight: 500; color: #444; background: #fff; cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+    .popular-tag:hover { border-color: #2563eb; color: #2563eb; }
+
+    .hero-banner-right { flex-shrink: 0; width: 200px; text-align: center; }
+    .grad-cap-img { font-size: 90px; line-height: 1; }
+
+    /* Section */
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .section-title { font-size: 18px; font-weight: 700; color: #1a1a2e; }
+    .view-all { font-size: 13px; font-weight: 500; color: #C9952A; display: flex; align-items: center; gap: 4px; }
+
+    /* Top Course Categories */
+    .categories-grid {
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 28px;
+    }
+    .cat-card {
+      background: #fff; border: 1px solid #eee; border-radius: 10px;
+      padding: 16px 14px; cursor: pointer; transition: box-shadow .2s, transform .2s;
+      position: relative;
+    }
+    .cat-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,.1); transform: translateY(-2px); }
+    .cat-card-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+    .cat-card-name { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 2px; }
+    .cat-card-count { font-size: 11px; color: #777; margin-bottom: 8px; }
+    .cat-card-desc { font-size: 11px; color: #555; line-height: 1.5; margin-bottom: 10px; }
+    .cat-card-explore { font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+
+    /* Popular Courses */
+    .popular-courses-grid { display: grid; grid-template-columns: repeat(4, 1fr) 220px; gap: 14px; margin-bottom: 28px; }
+    .course-card {
+      background: #fff; border: 1px solid #eee; border-radius: 12px;
+      padding: 18px 16px; display: flex; flex-direction: column;
+      transition: box-shadow .2s;
+    }
+    .course-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.1); }
+    .high-demand-badge {
+      display: inline-flex; align-items: center;
+      background: #dcfce7; color: #16a34a;
+      font-size: 10px; font-weight: 700; padding: 3px 8px;
+      border-radius: 20px; margin-bottom: 12px; width: fit-content;
+    }
+    .course-card-icon { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
+    .course-card-name { font-size: 14px; font-weight: 700; color: #1a1a2e; text-align: center; margin-bottom: 14px; line-height: 1.4; }
+    .course-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+    .course-meta-item { }
+    .course-meta-label { font-size: 10px; color: #aaa; font-weight: 500; }
+    .course-meta-value { font-size: 12px; font-weight: 600; color: #1a1a2e; }
+    .course-salary { font-size: 10px; color: #aaa; margin-bottom: 4px; }
+    .course-salary-value { font-size: 12px; font-weight: 700; color: #1a1a2e; margin-bottom: 14px; }
+    .course-card-btns { display: flex; gap: 8px; margin-top: auto; }
+    .btn-view { flex: 1; padding: 8px; border: 1.5px solid #ddd; border-radius: 7px; background: #fff; font-size: 12px; font-weight: 500; color: #444; text-align: center; }
+    .btn-apply { flex: 1; padding: 8px; border: none; border-radius: 7px; color: #fff; font-size: 12px; font-weight: 600; text-align: center; }
+
+    /* AI Recommendation Card */
+    .ai-card {
+      background: linear-gradient(160deg, #134e4a 0%, #0d9488 100%);
+      border-radius: 12px; padding: 18px 16px; color: #fff;
+      display: flex; flex-direction: column;
+    }
+    .ai-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .ai-card-title { font-size: 14px; font-weight: 700; }
+    .new-badge { background: #fbbf24; color: #1a1a2e; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px; }
+    .ai-card-sub { font-size: 11px; color: rgba(255,255,255,.75); margin-bottom: 14px; line-height: 1.5; }
+    .ai-steps { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .ai-step { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #fff; }
+    .ai-step-dot { width: 18px; height: 18px; background: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .btn-get-rec {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 10px; background: #10b981; border: none; border-radius: 8px;
+      color: #fff; font-size: 12px; font-weight: 700; margin-top: auto;
+    }
+
+    /* Career Opportunities */
+    .careers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .career-card {
+      background: #fff; border: 1px solid #eee; border-radius: 10px; padding: 16px;
+      transition: box-shadow .2s;
+    }
+    .career-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,.08); }
+    .career-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .career-icon { width: 38px; height: 38px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .career-name { font-size: 13px; font-weight: 700; color: #1a1a2e; }
+    .career-roles { list-style: none; margin-bottom: 12px; }
+    .career-roles li { font-size: 11.5px; color: #555; margin-bottom: 4px; display: flex; align-items: center; gap: 5px; }
+    .career-roles li::before { content: '•'; color: #C9952A; font-size: 14px; }
+    .career-explore { font-size: 12px; font-weight: 600; color: #C9952A; display: flex; align-items: center; gap: 4px; }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ─────────────────────────────────────────────── -->
+<nav class="navbar">
+  <a href="index.html" class="logo">
+    <div class="logo-clip">
+      <img src="image copy 2.png" alt="Varun Aditya" />
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="#">Colleges</a></li>
+    <li><a href="apply.html" class="active">Courses</a></li>
+    <li><a href="#">Scholarships</a></li>
+    <li><a href="#">About Us</a></li>
+    <li><a href="#">Contact Us</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn-wa-nav">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Chat on WhatsApp
+    </button>
+    <a href="apply.html" class="btn-apply-nav">
+      Apply Now
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- ── PAGE LAYOUT ─────────────────────────────────────────── -->
+<div class="page-wrap">
+
+  <!-- ── SIDEBAR ──────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-title">Browse Courses</div>
+
+    <ul class="cat-list">
+      <li class="cat-item active">
+        <span class="cat-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>
+        <span class="cat-name">All Courses</span>
+        <span class="cat-count">128</span>
+      </li>
+      <li class="cat-item">
+        <span class="cat-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg></span>
+        <span class="cat-name">Engineering</span>
+        <span class="cat-count">32</span>
+      </li>
+      <li class="cat-item">
+        <span class="cat-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        <span class="cat-name">Medical</span>
+        <span class="cat-count">18</span>
+      </li>
+      <li class="cat-item">
+        <span class="cat-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></span>
+        <span class="cat-name">Management</span>
+        <span class="cat-count">16</span>
+      </li>
+      <li class="cat-item">
+        <span class="cat-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></span>
+        <span class="cat-name">Commerce</span>
+        <span class="cat-count">14</span>
+      </li>
+      <li class="cat-item">
+        <span class="cat-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v11m0 0H5m4 0h4m6-8v8m0 0h-4m4 0h-4"/></svg></span>
+        <span class="cat-name">Arts &amp; Science</span>
+        <span class="cat-count">20</span>
+      </li>
+      <li class="cat-item">
+        <span class="cat-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></span>
+        <span class="cat-name">Law</span>
+        <span class="cat-count">8</span>
+      </li>
+      <li class="cat-item">
+        <span class="cat-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><circle cx="11" cy="11" r="2"/></svg></span>
+        <span class="cat-name">Design</span>
+        <span class="cat-count">6</span>
+      </li>
+      <li class="cat-item">
+        <span class="cat-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v11"/><circle cx="12" cy="13" r="4"/></svg></span>
+        <span class="cat-name">Pharmacy</span>
+        <span class="cat-count">8</span>
+      </li>
+      <li class="cat-item">
+        <span class="cat-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></span>
+        <span class="cat-name">Nursing</span>
+        <span class="cat-count">6</span>
+      </li>
+    </ul>
+
+    <hr class="sidebar-divider" />
+
+    <div class="filter-section">
+      <div class="filter-title">Filter By</div>
+
+      <div class="filter-group-label">Duration</div>
+      <label class="checkbox-item"><input type="checkbox" checked /> <label>All Durations</label></label>
+      <label class="checkbox-item"><input type="checkbox" /> <label>1 – 2 Years</label></label>
+      <label class="checkbox-item"><input type="checkbox" /> <label>3 – 4 Years</label></label>
+      <label class="checkbox-item"><input type="checkbox" /> <label>5+ Years</label></label>
+
+      <div class="filter-group-label">Level</div>
+      <label class="checkbox-item"><input type="checkbox" checked /> <label>All Levels</label></label>
+      <label class="checkbox-item"><input type="checkbox" /> <label>Undergraduate</label></label>
+      <label class="checkbox-item"><input type="checkbox" /> <label>Postgraduate</label></label>
+      <label class="checkbox-item"><input type="checkbox" /> <label>Diploma</label></label>
+      <label class="checkbox-item"><input type="checkbox" /> <label>Certificate</label></label>
+    </div>
+
+    <div style="flex:1;"></div>
+
+    <div style="padding: 16px;">
+      <div style="background:#EEF2FF; border-radius:10px; padding:14px; text-align:center;">
+        <div style="font-size:22px; margin-bottom:4px;">🎓</div>
+        <div style="font-size:13px; font-weight:700; color:#1a1a2e; margin-bottom:4px;">Need Help Choosing?</div>
+        <div style="font-size:11px; color:#666; margin-bottom:10px;">Our experts are here to help</div>
+        <button class="btn-counselor">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.18 2 2 0 012.22 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+          Talk to Counselor
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN CONTENT ──────────────────────────────────────── -->
+  <main class="main">
+
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+      <div class="hero-banner-left">
+        <h1 class="hero-banner-title">Explore Your <span class="blue">Future Career Path</span></h1>
+        <p class="hero-banner-sub">Discover courses across Engineering, Medical, Arts &amp; Science, Commerce, Management, Law and more.</p>
+        <div class="search-row">
+          <div class="search-box">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input type="text" placeholder="Search courses by name, stream or keyword..." />
+          </div>
+          <button class="btn-search">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            Search
+          </button>
+        </div>
+        <div class="popular-row">
+          <span class="popular-label">Popular Searches:</span>
+          <span class="popular-tag">Engineering</span>
+          <span class="popular-tag">MBBS</span>
+          <span class="popular-tag">BBA</span>
+          <span class="popular-tag">B.Com</span>
+          <span class="popular-tag">MBA</span>
+          <span class="popular-tag">Nursing</span>
+          <span class="popular-tag">Law</span>
+        </div>
+      </div>
+      <div class="hero-banner-right">
+        <div style="font-size:100px; line-height:1;">🎓</div>
+      </div>
+    </div>
+
+    <!-- Top Course Categories -->
+    <div class="section-header">
+      <h2 class="section-title">Top Course Categories</h2>
+    </div>
+    <div class="categories-grid" style="margin-bottom:28px;">
+
+      <div class="cat-card">
+        <div class="cat-card-icon" style="background:#EEF2FF;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <div class="cat-card-name">Engineering</div>
+        <div class="cat-card-count">32 Courses</div>
+        <div class="cat-card-desc">B.Tech, M.Tech and more engineering programs</div>
+        <a href="#" class="cat-card-explore" style="color:#4f46e5;">Explore →</a>
+      </div>
+
+      <div class="cat-card">
+        <div class="cat-card-icon" style="background:#ECFDF5;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <div class="cat-card-name">Medical</div>
+        <div class="cat-card-count">18 Courses</div>
+        <div class="cat-card-desc">MBBS, BDS, Nursing, Pharmacy and more</div>
+        <a href="#" class="cat-card-explore" style="color:#059669;">Explore →</a>
+      </div>
+
+      <div class="cat-card">
+        <div class="cat-card-icon" style="background:#FFF3EE;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+        </div>
+        <div class="cat-card-name">Management</div>
+        <div class="cat-card-count">16 Courses</div>
+        <div class="cat-card-desc">BBA, MBA and other management programs</div>
+        <a href="#" class="cat-card-explore" style="color:#f97316;">Explore →</a>
+      </div>
+
+      <div class="cat-card">
+        <div class="cat-card-icon" style="background:#F5F3FF;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="cat-card-name">Commerce</div>
+        <div class="cat-card-count">14 Courses</div>
+        <div class="cat-card-desc">B.Com, M.Com, CA and other commerce programs</div>
+        <a href="#" class="cat-card-explore" style="color:#7c3aed;">Explore →</a>
+      </div>
+
+      <div class="cat-card">
+        <div class="cat-card-icon" style="background:#FDF2F8;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v11m0 0H5m4 0h4m6-8v8"/></svg>
+        </div>
+        <div class="cat-card-name">Arts &amp; Science</div>
+        <div class="cat-card-count">20 Courses</div>
+        <div class="cat-card-desc">B.A, B.Sc and other arts &amp; science programs</div>
+        <a href="#" class="cat-card-explore" style="color:#db2777;">Explore →</a>
+      </div>
+
+      <div class="cat-card">
+        <div class="cat-card-icon" style="background:#F0FDFA;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </div>
+        <div class="cat-card-name">Law</div>
+        <div class="cat-card-count">8 Courses</div>
+        <div class="cat-card-desc">LLB, BA LLB, BBA LLB and more</div>
+        <a href="#" class="cat-card-explore" style="color:#0d9488;">Explore →</a>
+      </div>
+
+    </div>
+
+    <!-- Popular Courses -->
+    <div class="section-header">
+      <h2 class="section-title">Popular Courses</h2>
+      <a href="#" class="view-all">View All Courses →</a>
+    </div>
+    <div class="popular-courses-grid">
+
+      <!-- B.Tech -->
+      <div class="course-card">
+        <span class="high-demand-badge">⚡ High Demand</span>
+        <div class="course-card-icon" style="background:#EEF2FF;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8h10M7 12h5"/></svg>
+        </div>
+        <div class="course-card-name">B.Tech Computer Science &amp; Engineering</div>
+        <div class="course-meta-grid">
+          <div class="course-meta-item"><div class="course-meta-label">Duration</div><div class="course-meta-value">4 Years</div></div>
+          <div class="course-meta-item"><div class="course-meta-label">Eligibility</div><div class="course-meta-value">12th with Maths</div></div>
+        </div>
+        <div class="course-salary">Avg. Salary</div>
+        <div class="course-salary-value">₹4L – ₹12L PA</div>
+        <div class="course-card-btns">
+          <button class="btn-view">View Details</button>
+          <button class="btn-apply" style="background:#4f46e5;">Apply Now</button>
+        </div>
+      </div>
+
+      <!-- MBBS -->
+      <div class="course-card">
+        <span class="high-demand-badge">⚡ High Demand</span>
+        <div class="course-card-icon" style="background:#ECFDF5;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="course-card-name">MBBS</div>
+        <div class="course-meta-grid">
+          <div class="course-meta-item"><div class="course-meta-label">Duration</div><div class="course-meta-value">5.5 Years</div></div>
+          <div class="course-meta-item"><div class="course-meta-label">Eligibility</div><div class="course-meta-value">12th (PCB)</div></div>
+        </div>
+        <div class="course-salary">Avg. Salary</div>
+        <div class="course-salary-value">₹8L – ₹15L PA</div>
+        <div class="course-card-btns">
+          <button class="btn-view">View Details</button>
+          <button class="btn-apply" style="background:#059669;">Apply Now</button>
+        </div>
+      </div>
+
+      <!-- BBA -->
+      <div class="course-card">
+        <div style="margin-bottom:28px;"></div>
+        <div class="course-card-icon" style="background:#FFF3EE;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="course-card-name">BBA</div>
+        <div class="course-meta-grid">
+          <div class="course-meta-item"><div class="course-meta-label">Duration</div><div class="course-meta-value">3 Years</div></div>
+          <div class="course-meta-item"><div class="course-meta-label">Eligibility</div><div class="course-meta-value">12th Any Stream</div></div>
+        </div>
+        <div class="course-salary">Avg. Salary</div>
+        <div class="course-salary-value">₹3L – ₹6L PA</div>
+        <div class="course-card-btns">
+          <button class="btn-view">View Details</button>
+          <button class="btn-apply" style="background:#C9952A;">Apply Now</button>
+        </div>
+      </div>
+
+      <!-- LLB -->
+      <div class="course-card">
+        <div style="margin-bottom:28px;"></div>
+        <div class="course-card-icon" style="background:#F5F3FF;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="course-card-name">LLB</div>
+        <div class="course-meta-grid">
+          <div class="course-meta-item"><div class="course-meta-label">Duration</div><div class="course-meta-value">3 Years</div></div>
+          <div class="course-meta-item"><div class="course-meta-label">Eligibility</div><div class="course-meta-value">Graduation</div></div>
+        </div>
+        <div class="course-salary">Avg. Salary</div>
+        <div class="course-salary-value">₹3L – ₹7L PA</div>
+        <div class="course-card-btns">
+          <button class="btn-view">View Details</button>
+          <button class="btn-apply" style="background:#7c3aed;">Apply Now</button>
+        </div>
+      </div>
+
+      <!-- AI Recommendation -->
+      <div class="ai-card">
+        <div class="ai-card-header">
+          <span class="ai-card-title">AI Course Recommendation</span>
+          <span class="new-badge">NEW</span>
+        </div>
+        <p class="ai-card-sub">Get personalized course suggestions based on your profile</p>
+        <div class="ai-steps">
+          <div class="ai-step">
+            <div class="ai-step-dot"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Enter your 12th marks
+          </div>
+          <div class="ai-step">
+            <div class="ai-step-dot"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Select your interests
+          </div>
+          <div class="ai-step">
+            <div class="ai-step-dot"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Get best course matches
+          </div>
+        </div>
+        <button class="btn-get-rec">
+          ✦ Get Recommendations
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Career Opportunities -->
+    <div class="section-header">
+      <h2 class="section-title">Career Opportunities</h2>
+      <a href="#" class="view-all">View All Careers →</a>
+    </div>
+    <div class="careers-grid">
+
+      <div class="career-card">
+        <div class="career-card-header">
+          <div class="career-icon" style="background:#EEF2FF;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <div class="career-name">B.Tech AI &amp; ML</div>
+        </div>
+        <ul class="career-roles">
+          <li>AI Engineer</li>
+          <li>Machine Learning Engineer</li>
+          <li>Data Scientist</li>
+          <li>AI Researcher</li>
+        </ul>
+        <a href="#" class="career-explore">Explore Careers →</a>
+      </div>
+
+      <div class="career-card">
+        <div class="career-card-header">
+          <div class="career-icon" style="background:#ECFDF5;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="career-name">B.Com</div>
+        </div>
+        <ul class="career-roles">
+          <li>Accountant</li>
+          <li>Auditor</li>
+          <li>Financial Analyst</li>
+          <li>Banking Officer</li>
+        </ul>
+        <a href="#" class="career-explore">Explore Careers →</a>
+      </div>
+
+      <div class="career-card">
+        <div class="career-card-header">
+          <div class="career-icon" style="background:#FFF3EE;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="career-name">MBA</div>
+        </div>
+        <ul class="career-roles">
+          <li>Business Analyst</li>
+          <li>Marketing Manager</li>
+          <li>HR Manager</li>
+          <li>Operations Manager</li>
+        </ul>
+        <a href="#" class="career-explore">Explore Careers →</a>
+      </div>
+
+      <div class="career-card">
+        <div class="career-card-header">
+          <div class="career-icon" style="background:#F5F3FF;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <div class="career-name">B.Tech Mechanical</div>
+        </div>
+        <ul class="career-roles">
+          <li>Mechanical Engineer</li>
+          <li>Design Engineer</li>
+          <li>Production Engineer</li>
+          <li>Project Engineer</li>
+        </ul>
+        <a href="#" class="career-explore">Explore Careers →</a>
+      </div>
+
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
