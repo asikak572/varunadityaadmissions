@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import ProtectedRoute from '@/components/auth/ProtectedRoute'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { useQuery, useMutation } from '@tanstack/react-query'
@@ -49,7 +50,7 @@ function InputField({ label, required, children }: { label: string; required?: b
 const inputCls = 'w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-navy focus:ring-1 focus:ring-navy placeholder-gray-400'
 const selectCls = `${inputCls} bg-white appearance-none`
 
-export default function ApplyPage() {
+function ApplyPageContent(){
   const searchParams = useSearchParams()
   const defaultCourse = searchParams.get('course') ? Number(searchParams.get('course')) : undefined
 
@@ -104,7 +105,6 @@ export default function ApplyPage() {
       </div>
     )
   }
-
   return (
     <div className="bg-gray-50 px-6 py-8">
       <div className="max-w-7xl mx-auto">
@@ -442,5 +442,12 @@ export default function ApplyPage() {
 
       </div>
     </div>
+  )
+}
+export default function ApplyPage() {
+  return (
+    <ProtectedRoute>
+      <ApplyPageContent />
+    </ProtectedRoute>
   )
 }
