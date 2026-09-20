@@ -12,10 +12,10 @@ class UserSerializer(serializers.ModelSerializer):
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, validators=[validate_password])
-
+    role = serializers.ChoiceField(choices=[('student', 'Student'), ('counsellor', 'Counsellor')], default='student')
     class Meta:
         model = User
-        fields = ('email', 'password', 'full_name', 'phone_number')
+        fields = ('email', 'password', 'full_name', 'phone_number','role')
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)

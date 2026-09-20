@@ -24,12 +24,8 @@ const AI_RECS = [
 ]
 
 const DOCS = [
-  { name: 'Aadhaar Card', required: true, accept: 'PDF, JPG, PNG', maxSize: 'Max 2MB' },
   { name: '10th Marksheet', required: true, accept: 'PDF, JPG, PNG', maxSize: 'Max 2MB' },
   { name: '12th Marksheet', required: true, accept: 'PDF, JPG, PNG', maxSize: 'Max 2MB' },
-  { name: 'Transfer Certificate', required: false, accept: 'PDF, JPG, PNG', maxSize: 'Max 2MB' },
-  { name: 'Community Certificate (If Applicable)', required: false, accept: 'PDF, JPG, PNG', maxSize: 'Max 2MB' },
-  { name: 'Passport Size Photo', required: true, accept: 'JPG, PNG', maxSize: 'Max 1MB' },
 ]
 
 const BOARDS = ['CBSE', 'ICSE', 'Tamil Nadu State Board', 'Andhra Pradesh Board', 'Karnataka Board', 'Other']

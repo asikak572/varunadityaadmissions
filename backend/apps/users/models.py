@@ -20,8 +20,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    ROLE_CHOICES = [('student', 'Student'), ('admin', 'Admin')]
-
+    ROLE_CHOICES = [('student', 'Student'), ('counsellor', 'Counsellor'), ('admin', 'Admin')]
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=150, blank=True)
     phone_number = models.CharField(max_length=20, blank=True)

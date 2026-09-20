@@ -16,6 +16,7 @@ export default function RegisterPage() {
     password: '',
     confirm_password: '',
     stream: '',
+    role: 'student',
   })
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
@@ -172,6 +173,19 @@ export default function RegisterPage() {
                     placeholder="As on your certificate"
                     className={inputCls}
                   />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">I am a</label>
+                  <select
+                    required
+                    value={form.role}
+                    onChange={(e) => set('role', e.target.value)}
+                    className={`${inputCls} appearance-none bg-white cursor-pointer`}
+                  >
+                    <option value="student">Student</option>
+                    <option value="counsellor">Counsellor</option>
+                  </select>
                 </div>
 
                 <div>

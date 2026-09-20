@@ -92,6 +92,7 @@ export interface RegisterData {
   password: string
   full_name: string
   phone_number?: string
+  role?: 'student' | 'counsellor'
 }
 
 export interface AuthTokens {
